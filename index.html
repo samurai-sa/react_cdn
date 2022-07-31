@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+  <!-- React コンポーネントが表示される DOM コンテナ -->
+  <div id="likesButtonContainer"></div>
+  <div id="nameInputContainer"></div>
+  <script type="text/babel">
+    // コンポーネント名はアッパーキャメルケース記法
+    const LikeButton = () => {
+      const [liked, setLiked] = React.useState(false);
+
+      const toggleLiked = () => {
+        return setLiked(!liked);
+      }
+
+      return (
+        <button className="likeButton" onClick={toggleLiked}>
+          {liked ? "いいね済み" : "いいね前"}
+        </button>
+      );
+    };
+
+    // コンポーネント名はアッパーキャメルケース記法
+    const NameInput = () => {
+      // useState() で state を管理
+      const [name, setName] = React.useState("React");
+
+      // 入力値を現在の状態 name にセットする関数
+      const handleOnChange = (event) => {
+        console.log(event.target.value);
+        return setName(event.target.value);
+      };
+
+      return(
+        <div>
+          <input type="text" onChange={handleOnChange} />
+          <p>こんにちは、{name}さん</p>
+        </div>
+      )
+    }
+
+    const dom = document.querySelector("#likesButtonContainer");
+    const nameInputDom = document.querySelector("#nameInputContainer");
+    ReactDOM.render(<LikeButton />, dom);
+    ReactDOM.render(<NameInput />, nameInputDom);
+  </script>
+</body>
+</html>
